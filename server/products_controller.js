@@ -35,10 +35,12 @@ module.exports = {
     update: (req, res, next) => {
         const dbInstance = req.app.get('db')
         const { id } = req.params
-        const { description } = req.query
+        const { description } = req.body
+
+        console.log(id, description)
 
         dbInstance.update_product([id, description])
-            .then((product) => res.status(200).send(product))
+            .then((product) => res.sendStatus(200))
             .catch(err => {
                 res.status(500).send({ error: "Something went wrong related to the update controller" });
                 console.log(err)
