@@ -33,13 +33,13 @@ module.exports = {
             })
     },
     update: (req, res, next) => {
-        const dbInstance = req.app.get('db')
+        const dbInstance = req.app.get('db');
         const { id } = req.params
-        const { description } = req.body
+        const { desc } = req.query
 
-        console.log(id, description)
+        console.log(id, desc)
 
-        dbInstance.update_product([id, description])
+        dbInstance.update_product([id, desc])
             .then((product) => res.sendStatus(200))
             .catch(err => {
                 res.status(500).send({ error: "Something went wrong related to the update controller" });
@@ -52,7 +52,7 @@ module.exports = {
         const { id } = req.params
 
         dbInstance.delete_product(id)
-            .then(() => res.status(200))
+            .then(() => res.sendStatus(200))
             .catch(err => {
                 res.status(500).send({ error: 'Something went wrong related to the delete controller' });
                 console.log(err)
